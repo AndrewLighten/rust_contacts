@@ -5,26 +5,6 @@
 // This small command line tool searches the ~/contacts.txt file for any match
 // to the provided input, and shows the whole contact.
 //
-// The contact file must be formatted as follows:
-//
-// «contact-name»
-//
-//      «key»:      «value»
-//      «key»:      «value»
-//      ...
-//
-// Here's an example:
-//
-// Local Laws
-//
-//      Phone:  0407 508 448
-//      Org:    Central Goldfields Shire Council
-//      Role:   Local laws
-//      Role:   Ranger
-//
-// If the search matches any text in that entire “Local Laws” contact's details,
-// the whole contact will be listed as a match.
-//
 // ---------------------------------------------------------------------------
 
 mod contact;

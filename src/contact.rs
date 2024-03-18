@@ -26,6 +26,17 @@ impl fmt::Display for Contact {
 impl Contact {
 
     /// Loads a vector of contacts from the well-known contact file.
+    ///
+    /// The file is assumed to be named “contacts.txt”, and is expected
+    /// to be located in the user's home directory.
+    /// 
+    /// See the README.md file for the expected contact file format.
+    /// 
+    /// # Returns
+    /// 
+    /// A vector of contacts. If any errors occur, this vector will
+    /// be empty.
+
     pub fn load_contacts() -> Vec<Contact> {
 
         // contact vector
