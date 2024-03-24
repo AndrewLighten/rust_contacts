@@ -25,6 +25,21 @@ impl fmt::Display for Contact {
 
 impl Contact {
 
+    /// Creates a new contact.
+    /// 
+    /// # Arguments
+    /// 
+    /// `name` - The name of the contact.
+    /// 
+    /// # Returns
+    /// 
+    /// A newly created contact with just a name. The contact's additional
+    /// information is an empty vector.
+    
+    pub fn new(name: String) -> Contact {
+        Contact{name, additional: vec![]}
+    }
+
     /// Loads a vector of contacts from the well-known contact file.
     ///
     /// The file is assumed to be named “contacts.txt”, and is expected
@@ -72,18 +87,18 @@ impl Contact {
             // if the string doesn't have any leading whitespace, it's the
             // start of a new contact
             if !content.starts_with(" ") {
-                contact_list.push(Contact{name: content, additional: vec![]});
+                contact_list.push(Contact::new(content));
                 continue;
             }
 
             // the line doesn't start with whitespace, so it's an additional
-            // line for the current contact
+            // line for the contact we're currently building up
             match contact_list.last_mut() {
                 Some(last_element) => {
                     (*last_element).additional.push(content);
                 }
                 None => {
-                    println!("The vector is empty");
+                    println!("Found additional data before the first contact");
                 }
             }
         }
