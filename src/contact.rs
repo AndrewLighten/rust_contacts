@@ -1,13 +1,11 @@
 /// This structure represents a contact that's been fetched from the contacts
 /// file.
-
 use dirs;
 use std::fmt;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 
 pub struct Contact {
-
     /// The contact's name
     pub name: String,
 
@@ -24,39 +22,50 @@ impl fmt::Display for Contact {
 }
 
 impl Contact {
-
     /// Creates a new contact.
-    /// 
+    ///
     /// # Arguments
-    /// 
+    ///
     /// `name` - The name of the contact.
-    /// 
+    ///
     /// # Returns
-    /// 
+    ///
     /// A newly created contact with just a name. The contact's additional
     /// information is an empty vector.
-    
-    pub fn new(name: String) -> Contact {
-        Contact{name, additional: vec![]}
+
+    pub fn new(name: String) -> Self {
+        Self {
+            name,
+            additional: vec![],
+        }
+    }
+
+    /// Add content to the additional data associated with a contact.
+    ///
+    /// # Arguments
+    ///
+    /// `content` - The additional content to add to the contact.
+
+    pub fn add_content(&mut self, content: String) {
+        self.additional.push(content);
     }
 
     /// Loads a vector of contacts from the well-known contact file.
     ///
     /// The file is assumed to be named “contacts.txt”, and is expected
     /// to be located in the user's home directory.
-    /// 
+    ///
     /// See the README.md file for the expected contact file format.
-    /// 
+    ///
     /// # Returns
-    /// 
+    ///
     /// A vector of contacts. If any errors occur, this vector will
     /// be empty.
 
     pub fn load_contacts() -> Vec<Contact> {
-
-        // contact vector
+        // contact list we'll build up
         let mut contact_list: Vec<Contact> = vec![];
-        
+
         // find the user's home directory
         let home_dir = match dirs::home_dir() {
             Some(path) => path,
@@ -75,7 +84,6 @@ impl Contact {
 
         // process each file line
         for line in reader.lines() {
-            
             // fetch the line
             let content = line.expect("Wanted a file line");
 
@@ -95,7 +103,7 @@ impl Contact {
             // line for the contact we're currently building up
             match contact_list.last_mut() {
                 Some(last_element) => {
-                    (*last_element).additional.push(content);
+                    last_element.add_content(content);
                 }
                 None => {
                     println!("Found additional data before the first contact");
@@ -108,20 +116,19 @@ impl Contact {
     }
 
     /// Checks whether the given search string is contained in the contact.
-    /// 
+    ///
     /// The search string is converted to lowercase before being compared to
     /// the contact's details.
-    /// 
+    ///
     /// # Arguments
-    /// 
+    ///
     /// * `search` - A string slice to search for in this contact.
-    /// 
+    ///
     /// # Returns
-    /// 
+    ///
     /// True if the needle is within the contact; otherwise, false.
 
     pub fn is_match(&self, search: &str) -> bool {
-
         // get a lowercase representation of the needle
         let needle_lower = search.to_lowercase();
 
@@ -139,5 +146,4 @@ impl Contact {
         // no match
         return false;
     }
-
 }
