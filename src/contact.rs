@@ -1,10 +1,10 @@
-/// This structure represents a contact that's been fetched from the contacts
-/// file.
 use dirs;
 use std::fmt;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 
+/// This structure represents a contact that's been fetched from the contacts
+/// file.
 pub struct Contact {
     /// The contact's name
     pub name: String,
