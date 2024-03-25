@@ -9,11 +9,10 @@
 
 mod contact;
 
-use std::env;
 use contact::Contact;
+use std::env;
 
 fn main() {
-
     // we only accept a single argument
     let args: Vec<String> = env::args().collect();
     if args.len() != 2 {
@@ -31,5 +30,5 @@ fn main() {
         if contact.is_match(search_text) {
             println!("{}", contact);
         }
-    });    
+    });
 }
