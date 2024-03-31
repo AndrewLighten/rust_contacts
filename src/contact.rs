@@ -1,4 +1,3 @@
-use dirs;
 use std::fmt;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
@@ -6,22 +5,26 @@ use std::io::{BufRead, BufReader};
 /// This structure represents a contact that's been fetched from the contacts
 /// file.
 pub struct Contact {
+    
     /// The contact's name
     pub name: String,
 
     /// Additional strings that the contact has (phone number, nickname, role,
     /// etc.)
     pub additional: Vec<String>,
+
 }
+
+/// Provide the display trait for a contact.
 
 impl fmt::Display for Contact {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        // Format the fields of MyStruct as a string
         write!(f, "{}\n\n{}\n", self.name, self.additional.join("\n"))
     }
 }
 
 impl Contact {
+
     /// Creates a new contact.
     ///
     /// # Arguments
@@ -33,6 +36,7 @@ impl Contact {
     /// A newly created contact with just a name. The contact's additional
     /// information is an empty vector.
 
+    #[inline]
     pub fn new(name: String) -> Self {
         Self {
             name,
@@ -46,6 +50,7 @@ impl Contact {
     ///
     /// `content` - The additional content to add to the contact.
 
+    #[inline]
     pub fn add_content(&mut self, content: String) {
         self.additional.push(content);
     }
@@ -63,6 +68,7 @@ impl Contact {
     /// be empty.
 
     pub fn load_contacts() -> Vec<Contact> {
+
         // contact list we'll build up
         let mut contact_list: Vec<Contact> = vec![];
 
@@ -84,6 +90,7 @@ impl Contact {
 
         // process each file line
         for line in reader.lines() {
+            
             // fetch the line
             let content = line.expect("Wanted a file line");
 
@@ -112,7 +119,8 @@ impl Contact {
         }
 
         // return our vector of contacts
-        contact_list
+        return contact_list;
+
     }
 
     /// Checks whether the given search string is contained in the contact.
@@ -129,6 +137,7 @@ impl Contact {
     /// True if the needle is within the contact; otherwise, false.
 
     pub fn is_match(&self, search: &str) -> bool {
+
         // get a lowercase representation of the needle
         let needle_lower = search.to_lowercase();
 
@@ -143,7 +152,9 @@ impl Contact {
                 return true;
             }
         }
+
         // no match
         return false;
+        
     }
 }

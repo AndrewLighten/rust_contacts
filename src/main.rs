@@ -13,6 +13,7 @@ use contact::Contact;
 use std::env;
 
 fn main() {
+    
     // we only accept a single argument
     let args: Vec<String> = env::args().collect();
     if args.len() != 2 {
